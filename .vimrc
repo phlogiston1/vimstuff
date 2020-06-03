@@ -1,6 +1,7 @@
+let mapleader = "\<Space>"
 set encoding=utf-8
 set nocompatible              " be iMproved, required
-filetype off                  " required
+filetype off                       " required
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -59,6 +60,13 @@ Plugin 'KabbAmine/vCoolor.vim'
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+"thx brainplot https://github.com/brainplot/nvim/blob/master/init.vim#L154,L203
+function! s:clean_up_whitespaces()
+    let cursorpos = getcurpos()
+    silent! %s/\_s*\%$//
+    silent! %s/\s\+$//
+    call setpos('.', cursorpos)
+endfunction
 " " To ignore plugin indent changes, instead use:
 " "filetype plugin on
 " "
@@ -89,19 +97,21 @@ set mouse=a
 syntax on
 set number relativenumber
 set nu rnu
+
 "remaps
-nnoremap <Space>jcomp :! javac %<CR>
-nnoremap <Space>e :NERDTreeToggle<CR>^ww
-nnoremap <Space>w <C-w>w
-nnoremap <Space>f :Files<CR>
-nnoremap <Space>g :YcmCompleter<Space>GoTo<CR>
-nnoremap <Space>d <C-o>
-nnoremap <Space>r :YcmCompleter<Space>FixIt<CR>
-nnoremap <Space>fg :GFiles<CR>
-nnoremap <Space>cn :YcmCompleter<Space>RefactorRename<Space>
-nnoremap <Space>t gt
+nnoremap <Leader>jcomp :! javac %<CR>
+nnoremap <Leader>e :NERDTreeToggle<CR>^ww
+nnoremap <Leader>w <C-w>w
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>g :YcmCompleter<Space>GoTo<CR>
+nnoremap <Leader>d <C-o>
+nnoremap <Leader>r :YcmCompleter<Space>FixIt<CR>
+nnoremap <Leader>fg :GFiles<CR>
+nnoremap <Leader>cn :YcmCompleter<Space>RefactorRename<Space>
+nnoremap <Leader>t gt
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-nnoremap <Space><Tab> :bnext<CR>
+nnoremap <Leader><Tab> :bnext<CR>
+nnoremap <Leader>rw :call s:clean_up_whitespaces()<CR>
 set termguicolors
 let g:gruvbox_italic = 1
 set background=dark
